@@ -1,0 +1,6 @@
+/index.js
+/lib/
+/node_modules/
+.DS_Store
+*.swp
+npm-debug.log
