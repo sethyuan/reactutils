@@ -1,11 +1,10 @@
 {
   "name": "reactutils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Common stuff for any React base app",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build-index": "babel src/index.js -o index.js",
-    "build": "npm run build-index && babel --ignore index.js src -d lib",
+    "build": "babel src -d lib",
     "clean": "rm -rf lib index.js",
     "prepublish": "npm run clean && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
