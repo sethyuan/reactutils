@@ -4,8 +4,8 @@ Common stuff for any React based app.
 
 ## Dev setup
 
-`npm install`
+`yarn install`
 
-### npm run tasks
+### yarn run tasks
 
-- **npm run build**: Transpile the source code
+- **build**: Transpile the source code
