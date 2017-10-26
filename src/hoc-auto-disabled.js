@@ -12,8 +12,8 @@ export default function autoDisabled(Comp) {
     render() {
       return (
         <Comp
-          disabled={this.state.disabled}
           {...this.props}
+          disabled={!this.props.disabled && this.state.disabled}
           onClick={this.onClick}
         />
       )
