@@ -21,11 +21,13 @@ export default function autoDisabled(Comp) {
 
     onClick = () => {
       if (this.props.onClick) {
-        try {
-          this.setState({ disabled: true }, this.props.onClick)
-        } finally {
-          this.setState({ disabled: false })
-        }
+        this.setState({ disabled: true }, async () => {
+          try {
+            await this.props.onClick()
+          } finally {
+            this.setState({ disabled: false })
+          }
+        })
       }
     }
   }
