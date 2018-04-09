@@ -3,7 +3,7 @@ import { displayName } from "./utils"
 
 export default function propReduce(reducers, props, initialValue) {
   return Comp => {
-    return class PropReduce extends React.Component {
+    class PropReduce extends React.Component {
       static displayName = `PropReduce(${displayName(Comp)})`
 
       render() {
@@ -17,5 +17,12 @@ export default function propReduce(reducers, props, initialValue) {
         return <Comp {...this.props} {...newProps} />
       }
     }
+
+    // copy all static members except `displayName`
+    // eslint-disable-next-line
+    const { displayName: ignored, ...members } = Comp
+    Object.assign(PropReduce, members)
+
+    return PropReduce
   }
 }

@@ -2,7 +2,7 @@ import React from "react"
 import { displayName } from "./utils"
 
 export default function autoDisabled(Comp) {
-  return class AutoDisabled extends React.Component {
+  class AutoDisabled extends React.Component {
     static displayName = `AutoDisabled(${displayName(Comp)})`
 
     state = {
@@ -37,4 +37,11 @@ export default function autoDisabled(Comp) {
       }
     }
   }
+
+  // copy all static members except `displayName`
+  // eslint-disable-next-line
+  const { displayName: ignored, ...members } = Comp
+  Object.assign(AutoDisabled, members)
+
+  return AutoDisabled
 }
