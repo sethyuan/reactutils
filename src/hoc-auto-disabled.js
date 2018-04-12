@@ -19,7 +19,11 @@ export default function autoDisabled(Comp) {
               ? this.state.disabled
               : this.props.disabled
           }
-          duringClick={this.state.duringClick}
+          duringClick={
+            this.props.duringClick === undefined
+              ? this.state.duringClick
+              : this.props.duringClick
+          }
           onClick={this.onClick}
         />
       )
