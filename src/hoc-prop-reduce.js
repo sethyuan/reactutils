@@ -20,8 +20,14 @@ export default function propReduce(reducers, props, initialValue) {
 
     // copy all static members except `displayName` and
     // `getDerivedStateFromProps`
-    // eslint-disable-next-line
-    const { displayName: ignored, getDerivedStateFromProps, ...members } = Comp
+    /* eslint-disable */
+    const {
+      displayName: ignored,
+      getDerivedStateFromProps,
+      childContextTypes,
+      ...members
+    } = Comp
+    /* eslint-enable */
     Object.assign(PropReduce, members)
 
     return PropReduce
