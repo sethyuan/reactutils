@@ -33,7 +33,7 @@ export default function autoDisabled(Comp) {
       this.mounted = true
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
       this.mounted = false
     }
 
