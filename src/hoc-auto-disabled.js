@@ -29,13 +29,23 @@ export default function autoDisabled(Comp) {
       )
     }
 
+    componentDidMount() {
+      this.mounted = true
+    }
+
+    componentWillMount() {
+      this.mounted = false
+    }
+
     onClick = (...args) => {
       if (this.props.onClick) {
         this.setState({ disabled: true, duringClick: true }, async () => {
           try {
             await this.props.onClick(...args)
           } finally {
-            this.setState({ disabled: false, duringClick: false })
+            if (this.mounted) {
+              this.setState({ disabled: false, duringClick: false })
+            }
           }
         })
       }
