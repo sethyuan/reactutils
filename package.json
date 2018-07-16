@@ -1,6 +1,6 @@
 {
   "name": "reactutils",
-  "version": "2.3.8",
+  "version": "2.3.9",
   "description": "Common stuff for any React base app",
   "main": "lib/index.js",
   "scripts": {
