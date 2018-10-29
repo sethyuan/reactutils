@@ -1,6 +1,6 @@
 # reactutils
 
-Common stuff for any React based app.
+Common utilities for React based apps
 
 ## Dev setup
 

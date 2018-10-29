@@ -1,3 +1,5 @@
+import AutoDisabled from "./AutoDisabled"
+import Timers from "./Timers"
+
 export * from "./utils"
-export autoDisabled from "./hoc-auto-disabled"
-export propReduce from "./hoc-prop-reduce"
+export { AutoDisabled, Timers }
