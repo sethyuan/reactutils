@@ -1,6 +1,6 @@
 module.exports = {
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2018,
     sourceType: "module",
     ecmaFeatures: {
       impliedStrict: true,
@@ -18,19 +18,17 @@ module.exports = {
   globals: {},
   rules: {
     "object-shorthand": "error",
-    "generator-star-spacing": ["error", "after"],
     camelcase: ["error", { properties: "never" }],
     eqeqeq: ["error", "smart"],
     "linebreak-style": ["error", "unix"],
     "new-cap": "error",
     "no-array-constructor": "error",
-    "no-lonely-if": "error",
     "no-loop-func": "error",
     "no-param-reassign": "error",
     "no-sequences": "error",
     "no-shadow-restricted-names": "error",
     "no-unneeded-ternary": "error",
-    "no-unused-expressions": "error",
+    "no-unused-expressions": "off",
     "no-unused-vars": ["error", { args: "none" }],
     "no-use-before-define": ["error", "nofunc"],
     "no-var": "error",

@@ -22,7 +22,7 @@ function getGlobal() {
 
 const win = getGlobal()
 
-class Timers extends React.Component {
+export default class Timers extends React.Component {
   constructor(props) {
     super(props)
 
@@ -43,7 +43,7 @@ class Timers extends React.Component {
         return id
       }
 
-      this.methods[cf] = id => {
+      this.methods[cf] = (id) => {
         win[cf](id)
         if (this.ids[f]) this.ids[f].delete(id)
       }
@@ -62,10 +62,8 @@ class Timers extends React.Component {
       ["requestAnimationFrame", "cancelAnimationFrame"],
     ].forEach(([f, cf]) => {
       if (this.ids[f]) {
-        this.ids[f].forEach(id => win[cf](id))
+        this.ids[f].forEach((id) => win[cf](id))
       }
     })
   }
 }
-
-export default Timers
