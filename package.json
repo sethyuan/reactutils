@@ -1,13 +1,14 @@
 {
   "name": "reactutils",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Common utilities for React based apps",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
     "cleanup": "rm -rf dist",
-    "build": "rollup -c",
+    "build": "rollup -c && tsc --emitDeclarationOnly",
     "prepublishOnly": "yarn run cleanup && yarn run build"
   },
   "files": [

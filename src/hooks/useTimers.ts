@@ -44,7 +44,7 @@ export function useTimers() {
         return id
       }
 
-      methods[cf] = (id) => {
+      methods[cf] = (id: any) => {
         win[cf](id)
         ids[f]?.delete(id)
       }

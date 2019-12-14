@@ -12,9 +12,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "declaration": true,
+    "declarationDir": "dist"
   },
   "include": ["src"]
 }
