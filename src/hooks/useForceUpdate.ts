@@ -1,7 +1,7 @@
 import { useReducer } from "react"
 
-export default function useForceUpdate() {
+export function useForceUpdate() {
   const [, forceUpdate] = useReducer((x) => !x, false)
 
-  return forceUpdate
+  return forceUpdate as () => void
 }

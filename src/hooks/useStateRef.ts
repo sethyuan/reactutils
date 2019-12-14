@@ -1,7 +1,7 @@
 import { useRef } from "react"
-import useForceUpdate from "./forceUpdate"
+import { useForceUpdate } from "./useForceUpdate"
 
-export default function useStateRef(initializer) {
+export function useStateRef(initializer: any) {
   const stateRef = useRef(undefined)
   const forceUpdate = useForceUpdate()
 
@@ -13,7 +13,7 @@ export default function useStateRef(initializer) {
     }
   }
 
-  function setState(v) {
+  function setState(v: any) {
     if (typeof v === "function") {
       const updater = v
       stateRef.current = updater(stateRef.current)

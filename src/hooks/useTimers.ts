@@ -20,11 +20,11 @@ function getGlobal() {
   return g
 }
 
-const win = getGlobal()
+const win: any = getGlobal()
 
-export default function useTimers() {
-  const idsRef = useRef({})
-  const methodsRef = useRef({})
+export function useTimers() {
+  const idsRef = useRef<any>({})
+  const methodsRef = useRef<any>({})
   const ids = idsRef.current
   const methods = methodsRef.current
 
@@ -35,7 +35,7 @@ export default function useTimers() {
       ["setImmediate", "clearImmediate"],
       ["requestAnimationFrame", "cancelAnimationFrame"],
     ].forEach(([f, cf]) => {
-      methods[f] = (...args) => {
+      methods[f] = (...args: any[]) => {
         const id = win[f](...args)
         if (!ids[f]) {
           ids[f] = new Set()
@@ -59,7 +59,7 @@ export default function useTimers() {
         ["setImmediate", "clearImmediate"],
         ["requestAnimationFrame", "cancelAnimationFrame"],
       ].forEach(([f, cf]) => {
-        ids[f]?.forEach((id) => win[cf](id))
+        ids[f]?.forEach((id: any) => win[cf](id))
       })
     }
   }, [])
