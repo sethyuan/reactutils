@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
-type UseFetchType = {
+export type UseFetchType = {
   loading: boolean
-  data: object | null | undefined
-  error: object | null | undefined
+  data: { [key: string]: any } | null | undefined
+  error: { [key: string]: any } | null | undefined
 }
 
 export function useFetch(
   input: RequestInfo,
   init?: RequestInit,
   deps?: React.DependencyList,
-) {
+): UseFetchType {
   const [{ loading, data, error }, setState] = useState<UseFetchType>({
     loading: false,
     data: null,
@@ -30,5 +30,5 @@ export function useFetch(
     })()
   }, deps)
 
-  return [loading, data, error]
+  return { loading, data, error }
 }

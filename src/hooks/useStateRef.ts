@@ -1,8 +1,10 @@
-import { useRef } from "react"
+import { useRef, MutableRefObject } from "react"
 import { useForceUpdate } from "./useForceUpdate"
 
-export function useStateRef(initializer: any) {
-  const stateRef = useRef(undefined)
+export function useStateRef<T>(
+  initializer: T,
+): [MutableRefObject<T>, (v: T) => void] {
+  const stateRef = useRef<T | undefined>(undefined)
   const forceUpdate = useForceUpdate()
 
   if (stateRef.current === undefined) {
@@ -23,5 +25,5 @@ export function useStateRef(initializer: any) {
     forceUpdate()
   }
 
-  return [stateRef, setState]
+  return [stateRef as MutableRefObject<T>, setState]
 }

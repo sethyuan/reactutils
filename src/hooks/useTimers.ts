@@ -22,6 +22,28 @@ function getGlobal() {
 
 const win: any = getGlobal()
 
+export interface Timers {
+  setTimeout(
+    handler: TimerHandler,
+    timeout?: number | undefined,
+    ...args: any[]
+  ): number
+  setInterval(
+    handler: TimerHandler,
+    timeout?: number | undefined,
+    ...args: any[]
+  ): number
+  setImmediate(
+    callback: (...args: any[]) => void,
+    ...args: any[]
+  ): NodeJS.Immediate
+  requestAnimationFrame(callback: FrameRequestCallback): number
+  clearTimeout(handle?: number | undefined): void
+  clearInterval(handle?: number | undefined): void
+  clearImmediate(id: NodeJS.Immediate): void
+  cancelRequestAnimationFrame(handle: number): void
+}
+
 export function useTimers() {
   const idsRef = useRef<any>({})
   const methodsRef = useRef<any>({})
@@ -64,5 +86,5 @@ export function useTimers() {
     }
   }, [])
 
-  return methods
+  return methods as Timers
 }
