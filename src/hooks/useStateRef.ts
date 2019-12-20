@@ -1,29 +1,37 @@
-import React, { useRef } from "react"
+import { useRef } from "react"
 import { useForceUpdate } from "./useForceUpdate"
 
-export function useStateRef<T>(
-  initializer: T,
-): [React.MutableRefObject<T>, (v: T) => void] {
-  const stateRef = useRef<T | undefined>(undefined)
+function isInitFunc<T>(x: T | (() => T)): x is () => T {
+  return typeof x === "function"
+}
+
+function isUpdaterFunc<T>(
+  state: T | ((prevState: T) => T),
+): state is (prevState: T) => T {
+  return typeof state === "function"
+}
+
+export function useStateRef<T>(initializer: T | (() => T)) {
+  const stateRef = useRef<T>(undefined!)
   const forceUpdate = useForceUpdate()
 
   if (stateRef.current === undefined) {
-    if (typeof initializer === "function") {
+    if (isInitFunc(initializer)) {
       stateRef.current = initializer()
     } else {
       stateRef.current = initializer
     }
   }
 
-  function setState(v: any) {
-    if (typeof v === "function") {
-      const updater = v
+  function setState(state: T | ((prevState: T) => T)) {
+    if (isUpdaterFunc(state)) {
+      const updater = state
       stateRef.current = updater(stateRef.current)
     } else {
-      stateRef.current = v
+      stateRef.current = state
     }
     forceUpdate()
   }
 
-  return [stateRef as React.MutableRefObject<T>, setState]
+  return [stateRef, setState] as const
 }

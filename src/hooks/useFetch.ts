@@ -10,7 +10,7 @@ export function useFetch(
   input: RequestInfo,
   init?: RequestInit,
   deps?: React.DependencyList,
-): UseFetchType {
+) {
   const [{ loading, data, error }, setState] = useState<UseFetchType>({
     loading: false,
     data: null,
@@ -30,5 +30,5 @@ export function useFetch(
     })()
   }, deps)
 
-  return { loading, data, error }
+  return { loading, data, error } as UseFetchType
 }
