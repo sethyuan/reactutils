@@ -1,6 +1,6 @@
 {
   "name": "reactutils",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "Common utilities for React based apps",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -8,7 +8,7 @@
   "sideEffects": false,
   "scripts": {
     "cleanup": "rm -rf dist",
-    "build": "rollup -c && tsc --emitDeclarationOnly",
+    "build": "rollup -c && dts-bundle-generator -o dist/index.d.ts src/index.ts",
     "prepublishOnly": "yarn run cleanup && yarn run build"
   },
   "files": [
@@ -40,6 +40,7 @@
     "@rollup/plugin-node-resolve": "^6.0.0",
     "@rollup/plugin-typescript": "^2.0.1",
     "@types/react": "^16.9.16",
+    "dts-bundle-generator": "^3.3.1",
     "prettier": "^1.19.1",
     "rollup": "^1.27.12",
     "tslib": "^1.10.0",

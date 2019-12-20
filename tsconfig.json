@@ -14,8 +14,7 @@
     "isolatedModules": true,
     "jsx": "react",
     "baseUrl": "src",
-    "declaration": true,
-    "declarationDir": "dist"
+    "declaration": true
   },
   "include": ["src"]
 }
