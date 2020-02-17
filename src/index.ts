@@ -1,5 +1,6 @@
 export * from "helpers/cls"
 export * from "hooks/useDependentState"
+export * from "hooks/useMeta"
 export * from "hooks/useFetch"
 export * from "hooks/useForceUpdate"
 export * from "hooks/usePrev"
