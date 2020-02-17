@@ -6,7 +6,10 @@ export type UseMetaType = {
   error: { [key: string]: any } | null | undefined
 }
 
-export function useMeta(fn: () => Promise<any>, deps?: React.DependencyList) {
+export function useMeta(
+  fn: () => Promise<any>,
+  deps?: React.DependencyList,
+): UseMetaType {
   const [{ loading, data, error }, setState] = useState<UseMetaType>({
     loading: false,
     data: null,
@@ -25,5 +28,5 @@ export function useMeta(fn: () => Promise<any>, deps?: React.DependencyList) {
     })()
   }, deps)
 
-  return { loading, data, error } as UseMetaType
+  return { loading, data, error }
 }
