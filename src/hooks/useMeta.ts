@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 
-export type UseMetaType = {
+export type UseMetaType<T> = {
   loading: boolean
-  data: any
+  data: T | null
   error: { [key: string]: any } | null | undefined
 }
 
-export function useMeta(
-  fn: () => Promise<any>,
+export function useMeta<T>(
+  fn: () => Promise<T>,
   deps?: React.DependencyList,
-): UseMetaType {
-  const [{ loading, data, error }, setState] = useState<UseMetaType>({
+): UseMetaType<T> {
+  const [{ loading, data, error }, setState] = useState<UseMetaType<T>>({
     loading: false,
     data: null,
     error: null,
