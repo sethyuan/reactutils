@@ -1,6 +1,6 @@
 {
   "name": "reactutils",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "Common utilities for React based apps",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

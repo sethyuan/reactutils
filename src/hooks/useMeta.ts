@@ -11,7 +11,7 @@ export function useMeta<T>(
   deps?: React.DependencyList,
 ): UseMetaType<T> {
   const [{ loading, data, error }, setState] = useState<UseMetaType<T>>({
-    loading: false,
+    loading: true,
     data: undefined,
     error: undefined,
   })
