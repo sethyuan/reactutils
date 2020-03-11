@@ -23,7 +23,7 @@ export function useMeta<T>(
         const data = await fn()
         setState({ loading: false, data, error: undefined })
       } catch (err) {
-        setState({ loading: false, data, error: err })
+        setState({ loading: false, data: undefined, error: err })
       }
     })()
   }, deps)
