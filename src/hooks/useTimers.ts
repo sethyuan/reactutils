@@ -44,7 +44,7 @@ export interface Timers {
   cancelRequestAnimationFrame(handle: number): void
 }
 
-export function useTimers() {
+export function useTimers(): Timers {
   const idsRef = useRef<any>({})
   const methodsRef = useRef<any>({})
   const ids = idsRef.current
@@ -86,5 +86,5 @@ export function useTimers() {
     }
   }, [])
 
-  return methods as Timers
+  return methods
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useRef } from "react"
 
 interface CancellablePromise<T> {
   promise: Promise<T>
@@ -15,20 +15,20 @@ function makeCancellableImpl<T>(
     promise: new Promise((resolve, reject) => {
       promise.then(
         (val) => {
+          callback(promise)
           if (isCanceled) {
             reject(new Error("canceled"))
           } else {
             resolve(val)
           }
-          callback(promise)
         },
         (err) => {
+          callback(promise)
           if (isCanceled) {
             reject(new Error("canceled"))
           } else {
             reject(err)
           }
-          callback(promise)
         },
       )
     }),
@@ -40,7 +40,8 @@ function makeCancellableImpl<T>(
 }
 
 export function usePromise() {
-  let promises: CancellablePromise<any>[] = []
+  const promisesRef = useRef<CancellablePromise<any>[]>([])
+  const promises = promisesRef.current
 
   const removePromise = useCallback(
     <T>(promise: Promise<T>) => {
@@ -78,7 +79,6 @@ export function usePromise() {
       for (const p of promises) {
         p.cancel()
       }
-      promises = []
     }
   }, [])
 
