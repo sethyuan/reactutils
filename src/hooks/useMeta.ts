@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 export type UseMetaType<T> = {
   loading: boolean
@@ -7,29 +7,45 @@ export type UseMetaType<T> = {
   refetch: () => void
 }
 
-type State<T> = {
-  loading: boolean
-  data?: T
-  error?: { [key: string]: any }
-}
-
 export function useMeta<T>(
-  fn: () => Promise<T>,
+  fn: () => T | Promise<T>,
   deps?: React.DependencyList,
 ): UseMetaType<T> {
-  const [{ loading, data, error }, setState] = useState<State<T>>({
-    loading: true,
-    data: undefined,
-    error: undefined,
+  const [_loading, setLoading] = useState(true)
+  const [_data, setData] = useState<T | undefined>()
+  const [_error, setError] = useState<{ [key: string]: any } | undefined>()
+
+  const state = useRef({
+    usedLoading: false,
+    usedData: false,
+    usedError: false,
   })
 
   const refetch = useCallback(async () => {
-    setState({ loading: true, data, error })
+    if (state.current.usedLoading) {
+      setLoading(true)
+    }
     try {
-      const data = await fn()
-      setState({ loading: false, data, error: undefined })
+      const ret = await fn()
+      if (state.current.usedLoading) {
+        setLoading(false)
+      }
+      if (state.current.usedData) {
+        setData(ret)
+      }
+      if (state.current.usedError) {
+        setError(undefined)
+      }
     } catch (err) {
-      setState({ loading: false, data: undefined, error: err })
+      if (state.current.usedLoading) {
+        setLoading(false)
+      }
+      if (state.current.usedData) {
+        setData(undefined)
+      }
+      if (state.current.usedError) {
+        setError(err)
+      }
     }
   }, [fn])
 
@@ -37,5 +53,19 @@ export function useMeta<T>(
     refetch()
   }, deps)
 
-  return { loading, data, error, refetch }
+  return {
+    get loading() {
+      state.current.usedLoading = true
+      return _loading
+    },
+    get data() {
+      state.current.usedData = true
+      return _data
+    },
+    get error() {
+      state.current.usedError = true
+      return _error
+    },
+    refetch,
+  }
 }
