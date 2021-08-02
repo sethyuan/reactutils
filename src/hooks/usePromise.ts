@@ -12,7 +12,7 @@ function makeCancellableImpl<T>(
   let isCanceled = false
 
   return {
-    promise: new Promise((resolve, reject) => {
+    promise: new Promise<T>((resolve, reject) => {
       promise.then(
         (val) => {
           callback(promise)

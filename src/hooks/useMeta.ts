@@ -1,16 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 
-export type UseMetaType<T> = {
-  loading: boolean
-  data?: T
-  error?: { [key: string]: any }
-  refetch: () => void
-}
-
 export function useMeta<T>(
   fn: () => T | Promise<T>,
   deps?: React.DependencyList,
-): UseMetaType<T> {
+) {
   const [_loading, setLoading] = useState(true)
   const [_data, setData] = useState<T | undefined>()
   const [_error, setError] = useState<{ [key: string]: any } | undefined>()

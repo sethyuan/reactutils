@@ -1,6 +1,13 @@
 import { useCallback, useRef, useState } from "react"
 
-export function useWaitedAction(fn?: (...args: any) => void | Promise<void>) {
+export interface WaitedActionReturn {
+  action?: (...args: any[]) => Promise<void>
+  readonly duringAction: boolean
+}
+
+export function useWaitedAction(
+  fn?: (...args: any) => void | Promise<void>,
+): WaitedActionReturn {
   const [_duringAction, setDuringAction] = useState(false)
 
   const state = useRef({
