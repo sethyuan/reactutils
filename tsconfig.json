@@ -16,12 +16,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
-    "baseUrl": "src",
     "declaration": true,
     "declarationDir": ".",
   },
   "include": [
     "src"
   ],
-  "exclude": [],
+  "exclude": [
+    "dist"
+  ],
 }

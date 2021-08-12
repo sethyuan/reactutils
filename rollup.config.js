@@ -1,5 +1,5 @@
-import typescript from "@rollup/plugin-typescript"
 import moduleResolve from "@rollup/plugin-node-resolve"
+import typescript from "@rollup/plugin-typescript"
 
 const peerDeps = Object.keys(require("./package.json").peerDependencies)
 
@@ -19,7 +19,7 @@ export default {
     moduleResolve({
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     }),
-    typescript(),
+    typescript({ tsconfig: "./tsconfig.json" }),
   ],
   external: peerDeps,
 }

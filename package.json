@@ -1,6 +1,6 @@
 {
   "name": "reactutils",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "description": "Common utilities for React based apps",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -8,7 +8,7 @@
   "sideEffects": false,
   "scripts": {
     "cleanup": "rm -rf dist",
-    "build": "rollup -c && dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build": "rollup -c",
     "prepublishOnly": "yarn run cleanup && yarn run build"
   },
   "files": [
@@ -33,6 +33,10 @@
     "url": "https://gitee.com/sethyuan/reactutils/issues"
   },
   "homepage": "https://gitee.com/sethyuan/reactutils#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
     "react": ">=16.8.0"
   },
@@ -40,7 +44,6 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-typescript": "^8.2.3",
     "@types/react": "^16.9.16",
-    "dts-bundle-generator": "^5.9.0",
     "prettier": "^2.3.2",
     "rollup": "^2.54.0",
     "tslib": "^2.3.0",
