@@ -1,27 +1,26 @@
-import React, { ComponentType, Key, memo, useEffect } from "react"
+import React, { ComponentType, memo, ReactElement } from "react"
 import { usePrev } from "../hooks/usePrev"
 
 export type Props = {
   id: any
-  component: ComponentType<any>
-  onRestore?: (key: Key) => void
+  component?: ComponentType<any>
+  render?: (args: { [key: string]: any }) => ReactElement
   [key: string]: any
 }
 
 export const KeepPrevView = memo(
-  ({ id, component, onRestore, ...others }: Props) => {
-    const Comp = component
-    const jsx = <Comp onRestore={onRestore} {...others} />
-
+  ({ id, component, render, ...others }: Props) => {
     const prevId = usePrev(id)
     const prevPrevId = usePrev(prevId)
-    const prevJsx = usePrev(jsx)
 
-    useEffect(() => {
-      if (id === prevPrevId) {
-        onRestore?.(id)
-      }
-    }, [id, prevPrevId])
+    const Comp = component!
+    const jsx = render ? (
+      render({ restored: id === prevPrevId, ...others })
+    ) : (
+      <Comp restored={id === prevPrevId} {...others} />
+    )
+
+    const prevJsx = usePrev(jsx)
 
     return (
       <>
