@@ -1,23 +1,23 @@
-import React, { ComponentType, memo, ReactElement } from "react"
+import React, { ComponentType, Key, memo, ReactNode } from "react"
 import { usePrev } from "../hooks/usePrev"
 
 export type Props = {
-  id: any
+  kpvid: Key
   component?: ComponentType<any>
-  render?: (args: { [key: string]: any }) => ReactElement
+  render?: (props: { [key: string]: any }) => ReactNode
   [key: string]: any
 }
 
 export const KeepPrevView = memo(
-  ({ id, component, render, ...others }: Props) => {
-    const prevId = usePrev(id)
+  ({ kpvid, component, render, ...others }: Props) => {
+    const prevId = usePrev(kpvid)
     const prevPrevId = usePrev(prevId)
 
     const Comp = component!
     const jsx = render ? (
-      render({ restored: id === prevPrevId, ...others })
+      render({ restored: kpvid === prevPrevId, ...others })
     ) : (
-      <Comp restored={id === prevPrevId} {...others} />
+      <Comp restored={kpvid === prevPrevId} {...others} />
     )
 
     const prevJsx = usePrev(jsx)
@@ -27,11 +27,11 @@ export const KeepPrevView = memo(
         <div key={prevId} style={{ display: "none" }}>
           {prevJsx}
         </div>
-        <div key={id}>{jsx}</div>
+        <div key={kpvid}>{jsx}</div>
       </>
     )
   },
-  (prev, next) => prev.id === next.id,
+  (prev, next) => prev.kpvid === next.kpvid,
 )
 
 KeepPrevView.displayName = "KeepPrevView"
