@@ -1,10 +1,16 @@
-import React, { ComponentType, Key, memo, ReactNode } from "react"
+import React, {
+  cloneElement,
+  ComponentType,
+  Key,
+  memo,
+  ReactElement,
+} from "react"
 import { usePrev } from "../hooks/usePrev"
 
 export type Props = {
   kpvid: Key
   component?: ComponentType<any>
-  render?: (props: { [key: string]: any }) => ReactNode
+  render?: (props: { [key: string]: any }) => ReactElement
   [key: string]: any
 }
 
@@ -25,7 +31,9 @@ export const KeepPrevView = memo(
     return (
       <>
         <div key={prevId} style={{ display: "none" }}>
-          {prevJsx}
+          {prevJsx === undefined
+            ? prevJsx
+            : cloneElement(prevJsx, { restored: false })}
         </div>
         <div key={kpvid}>{jsx}</div>
       </>
