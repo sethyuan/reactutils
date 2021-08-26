@@ -12,7 +12,7 @@ import { usePrev } from "../hooks/usePrev"
 export type Props = {
   kpvId: Key
   kpvComponent?: ComponentType<any>
-  kpvRender?: (props: { [key: string]: any }) => ReactElement
+  kpvRender?: (props: any) => ReactElement
   [key: string]: any
 }
 

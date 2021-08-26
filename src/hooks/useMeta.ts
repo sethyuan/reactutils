@@ -1,12 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { DependencyList, useCallback, useEffect, useRef, useState } from "react"
 
-export function useMeta<T>(
-  fn: () => T | Promise<T>,
-  deps?: React.DependencyList,
-) {
+export function useMeta<T>(fn: () => T | Promise<T>, deps?: DependencyList) {
   const [_loading, setLoading] = useState(true)
-  const [_data, setData] = useState<T | undefined>()
-  const [_error, setError] = useState<{ [key: string]: any } | undefined>()
+  const [_data, setData] = useState<T>()
+  const [_error, setError] = useState<{ [key: string]: any }>()
 
   const state = useRef({
     usedLoading: false,

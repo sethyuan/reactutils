@@ -12,7 +12,7 @@ function isUpdaterFunc<T>(
 }
 
 export function useStateRef<T>(initializer: T | (() => T)) {
-  const stateRef = useRef<T>(undefined!)
+  const stateRef = useRef<T>()
   const forceUpdate = useForceUpdate()
 
   if (stateRef.current === undefined) {
@@ -26,7 +26,7 @@ export function useStateRef<T>(initializer: T | (() => T)) {
   function setState(state: T | ((prevState: T) => T)) {
     if (isUpdaterFunc(state)) {
       const updater = state
-      stateRef.current = updater(stateRef.current)
+      stateRef.current = updater(stateRef.current!)
     } else {
       stateRef.current = state
     }

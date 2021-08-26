@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react"
+import { DependencyList, useEffect, useState } from "react"
 
-export function useDependentState<T>(
-  updater: () => T,
-  deps: React.DependencyList,
-) {
+export function useDependentState<T>(updater: () => T, deps: DependencyList) {
   const [value, setValue] = useState(updater)
 
   useEffect(() => setValue(updater()), deps)
