@@ -17,7 +17,7 @@ export type Props = {
 }
 
 export const KeepPrevView = memo(
-  ({ kpvId, kpvComponent, kpvRender, ...others }: Props) => {
+  function KeepPrevView({ kpvId, kpvComponent, kpvRender, ...others }: Props) {
     const prevId = usePrev(kpvId)
     const prevPrevId = usePrev(prevId)
 
@@ -46,7 +46,7 @@ export const KeepPrevView = memo(
         <div key={prevId} style={{ display: "none" }}>
           {prevJsx === undefined
             ? prevJsx
-            : cloneElement(prevJsx, { restored: false })}
+            : cloneElement(prevJsx, { kpvRestored: false })}
         </div>
         <div key={kpvId}>{jsx}</div>
       </>
@@ -54,8 +54,6 @@ export const KeepPrevView = memo(
   },
   (prev, next) => prev.kpvId === next.kpvId,
 )
-
-KeepPrevView.displayName = "KeepPrevView"
 
 function useScrollRestore(restored: boolean) {
   const scrollElementRef = useRef<HTMLElement>()
