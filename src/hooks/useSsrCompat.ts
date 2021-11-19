@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useDependentState } from "./useDependentState"
 
-export default function useSsrCompat() {
+export function useSsrCompat() {
   const [mounted, setMounted] = useState(false)
   const [rendered] = useDependentState(() => mounted, [mounted])
 
