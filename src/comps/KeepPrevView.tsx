@@ -16,6 +16,48 @@ export type Props = {
   [key: string]: any
 }
 
+/**
+ * This component keeps the previous rendered view and its state around
+ * so when you switch back to it, no render is required and all of its
+ * state are retained. It can optionally retain the scroll offset too.
+ *
+ * Views are associated and identified by `kpvId`. There are 2 ways to
+ * render a view, `kpvComponent` or `kpvRender` function and regardless of
+ * what you choose to use, you will receive 2 extra props,
+ * `kpvRestored` and `kpvScrollElementRef`. `kpvRestored` tells you whether
+ * the view to render is "restored", that is, it was kept as the previous
+ * view; `kpvScrollElementRef` in the other hand, allows you to "attach" a
+ * scrolling DOM element if you want to persist scroll offset.
+ *
+ * @example
+ * ```jsx
+ * let view
+ *
+ * switch (path) {
+ * case "/pages/a":
+ *   view = <KeepPrevView kpvId="/pages/a" kpvComponent={CompA} />
+ *   break
+ * case "/pages/b":
+ *   view = <KeepPrevView kpvId="/pages/b" kpvComponent={CompB} />
+ *   break
+ * }
+ *
+ * // CompA
+ * function CompA({kpvRestored, kpvScrollElementRef}) {
+ *   useEffect(() => {
+ *     kpvScrollElementRef.current = document.body
+ *   }, [])
+ *
+ *   useEffect(() => {
+ *     if (kpvRestored) {
+ *       // View is showed up again.
+ *     }
+ *   }, [kpvRestored])
+ *
+ *   return ...
+ * }
+ * ```
+ */
 export const KeepPrevView = memo(
   function KeepPrevView({ kpvId, kpvComponent, kpvRender, ...others }: Props) {
     const prevId = usePrev(kpvId)
