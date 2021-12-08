@@ -3,7 +3,7 @@ import { DependencyList, useCallback, useEffect, useRef, useState } from "react"
 export function useMeta<T>(fn: () => T | Promise<T>, deps?: DependencyList) {
   const [_loading, setLoading] = useState(true)
   const [_data, setData] = useState<T>()
-  const [_error, setError] = useState<{ [key: string]: any }>()
+  const [_error, setError] = useState<any>()
 
   const state = useRef({
     usedLoading: false,
