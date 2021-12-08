@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 function getGlobal() {
   let g = undefined
@@ -44,6 +44,10 @@ export interface Timers {
   cancelRequestAnimationFrame(handle: number): void
 }
 
+/**
+ * Provide special versions of the different timers so they're
+ * cleared/canceled upon component unmount automatically.
+ */
 export function useTimers(): Timers {
   const idsRef = useRef<any>({})
   const methodsRef = useRef<any>({})

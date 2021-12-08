@@ -1,5 +1,11 @@
 import { DependencyList, useCallback, useEffect, useRef, useState } from "react"
 
+/**
+ * Giving a function that returns a value or promise, this hook provides
+ * some extra metadata for users to use. Metadata is only computed if you
+ * used it, therefore, any not used metadata will not affect your component's
+ * rendering.
+ */
 export function useMeta<T>(fn: () => T | Promise<T>, deps?: DependencyList) {
   const [_loading, setLoading] = useState(true)
   const [_data, setData] = useState<T>()

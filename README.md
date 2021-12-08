@@ -1,6 +1,8 @@
 # reactutils
 
-Common utilities for React based apps
+Common utilities for React based apps.
+
+Please see comments in each source file for documentation.
 
 ## Dev setup
 

@@ -17,7 +17,9 @@ function makeCancellableImpl<T>(
         (val) => {
           callback(promise)
           if (isCanceled) {
-            reject(new Error("canceled"))
+            const err = new Error("canceled")
+            err.name = "CanceledPromiseError"
+            reject(err)
           } else {
             resolve(val)
           }
@@ -25,7 +27,9 @@ function makeCancellableImpl<T>(
         (err) => {
           callback(promise)
           if (isCanceled) {
-            reject(new Error("canceled"))
+            const err = new Error("canceled")
+            err.name = "CanceledPromiseError"
+            reject(err)
           } else {
             reject(err)
           }
@@ -39,6 +43,33 @@ function makeCancellableImpl<T>(
   }
 }
 
+/**
+ * Provides mechanisms to cancel promises, also ensures all promises created
+ * through this mechanism are canceled when component is unmounted.
+ *
+ * ```js
+ * const [makeCancellable, cancelPromise] = usePromise()
+ *
+ * useEffect(() => {
+ *   ;(async () => {
+ *     // promise is automatically canceled if component is unmounted
+ *     // before it's resolved.
+ *     const dataPromise = makeCancellable(getData())
+ *     if (necessary) {
+ *       cancelPromise(dataPromise)
+ *     }
+ *     try {
+ *       const data = await dataPromise
+ *       // use data
+ *     } catch(err) {
+ *       if (err.name === "CanceledPromiseError") {
+ *         // ignore
+ *       }
+ *     }
+ *   })()
+ * }, [])
+ * ```
+ */
 export function usePromise() {
   const promisesRef = useRef<CancellablePromise<any>[]>([])
   const promises = promisesRef.current

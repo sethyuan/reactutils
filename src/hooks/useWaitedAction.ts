@@ -5,6 +5,21 @@ export interface WaitedActionReturn {
   readonly duringAction: boolean
 }
 
+/**
+ * Avoids an action being called multiple times, that is, it allows one
+ * execution at a time. It optionally provides a `duringAction` to indicate
+ * whether execution is finished or not.
+ *
+ * ```js
+ * const { action, duringAction } = useWaitedAction(async (e) => {
+ *   // ...
+ * })
+ *
+ * return (
+ *   <button onClick={action} disabled={duringAction}>Button</button>
+ * )
+ * ```
+ */
 export function useWaitedAction(
   fn?: (...args: any) => void | Promise<void>,
 ): WaitedActionReturn {
