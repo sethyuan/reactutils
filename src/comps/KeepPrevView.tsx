@@ -9,7 +9,7 @@ import React, {
 } from "react"
 import { usePrev } from "../hooks/usePrev"
 
-export type Props = {
+export type KeepPrevViewProps = {
   kpvId: Key
   kpvComponent?: ComponentType<any>
   kpvRender?: (props: any) => ReactElement
@@ -59,7 +59,12 @@ export type Props = {
  * ```
  */
 export const KeepPrevView = memo(
-  function KeepPrevView({ kpvId, kpvComponent, kpvRender, ...others }: Props) {
+  function KeepPrevView({
+    kpvId,
+    kpvComponent,
+    kpvRender,
+    ...others
+  }: KeepPrevViewProps) {
     const prevId = usePrev(kpvId)
     const prevPrevId = usePrev(prevId)
 
@@ -87,7 +92,7 @@ export const KeepPrevView = memo(
       <>
         <div key={prevId} style={{ display: "none" }}>
           {prevJsx === undefined
-            ? prevJsx
+            ? undefined
             : cloneElement(prevJsx, { kpvRestored: false })}
         </div>
         <div key={kpvId}>{jsx}</div>

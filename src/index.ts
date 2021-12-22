@@ -1,4 +1,5 @@
 export * from "./comps/KeepPrevView"
+export * from "./comps/KeepView"
 export * from "./helpers/cls"
 export * from "./hooks/useDependentState"
 export * from "./hooks/useForceUpdate"
