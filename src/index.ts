@@ -1,6 +1,7 @@
 export * from "./comps/KeepPrevView"
 export * from "./comps/KeepView"
 export * from "./helpers/cls"
+export * from "./hooks/useCompositionChange"
 export * from "./hooks/useDependentState"
 export * from "./hooks/useForceUpdate"
 export * from "./hooks/useLastWins"
