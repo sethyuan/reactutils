@@ -5,27 +5,27 @@ import { useCallback, useRef } from "react"
  * callback.
  */
 export function useCompositionChange(
-  callback: (e: InputEvent | CompositionEvent) => void,
+  callback: (e: InputEvent | CompositionEvent, ...others: any) => void,
 ) {
   const isComposing = useRef(false)
 
   const onChange = useCallback(
-    (e: InputEvent) => {
+    (e: InputEvent, ...others: any) => {
       if (isComposing.current) return
-      callback(e)
+      callback(e, ...others)
     },
     [callback],
   )
 
-  const onCompositionStart = useCallback((e: CompositionEvent) => {
+  const onCompositionStart = useCallback((_e: CompositionEvent) => {
     isComposing.current = true
   }, [])
 
   const onCompositionEnd = useCallback(
-    (e: CompositionEvent) => {
+    (e: CompositionEvent, ...others: any) => {
       isComposing.current = false
       if (!e.data) return
-      callback(e)
+      callback(e, ...others)
     },
     [callback],
   )
