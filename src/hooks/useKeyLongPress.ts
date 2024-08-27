@@ -11,7 +11,7 @@ export function useKeyLongPress(
   const timer = useRef<any>()
 
   const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
+    (e: React.KeyboardEvent) => {
       if (e.key !== key || timer.current != null) return
       timer.current = setTimeout(callback, duration)
     },
@@ -19,7 +19,7 @@ export function useKeyLongPress(
   )
 
   const onKeyUp = useCallback(
-    (e: KeyboardEvent) => {
+    (e: React.KeyboardEvent) => {
       if (e.key !== key) return
       clearTimeout(timer.current)
       timer.current = null
