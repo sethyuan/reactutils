@@ -1,7 +1,8 @@
 import moduleResolve from "@rollup/plugin-node-resolve"
 import typescript from "@rollup/plugin-typescript"
+import packageJSON from "./package.json" assert { type: "json" }
 
-const peerDeps = Object.keys(require("./package.json").peerDependencies)
+const peerDeps = Object.keys(packageJSON.peerDependencies)
 
 export default {
   input: "src/index.ts",
