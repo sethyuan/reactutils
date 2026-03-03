@@ -1,6 +1,6 @@
 import moduleResolve from "@rollup/plugin-node-resolve"
 import typescript from "@rollup/plugin-typescript"
-import packageJSON from "./package.json" assert { type: "json" }
+import packageJSON from "./package.json" with { type: "json" }
 
 const peerDeps = Object.keys(packageJSON.peerDependencies)
 
